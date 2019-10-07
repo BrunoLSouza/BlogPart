@@ -1,2 +1,2 @@
-# BlogPart
-Meu Blog
+# Blog
+Blog PWA
