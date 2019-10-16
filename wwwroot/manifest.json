@@ -1,0 +1,11 @@
+{    
+  "name": "BrunoLemes.Net",
+  "short_name": "BrunoLemes.Net",
+  "theme_color": "#4508da",
+  "background_color": "#0f90f6",
+  "display": "fullscreen",
+  "scope": "/",
+  "start_url": "/"
+  
+
+}

@@ -32,7 +32,7 @@
     <div id="{{Link}}" class="blog-item">
         {{Content}}
     </div>
-    <a href="#blog-title" class="btn btn-primary" onclick="clearBox();">voltar</a>
+    <a href="#blog-title" class="btn btn-primary">voltar</a>
 </script>
 
 <script id="blog-content-not-found" type="text/template">
@@ -44,7 +44,19 @@
         em plano de fundo e te avise quando estiver disponível?
     </div>
     <br />
-    <button class="btn btn-success">Sim!</button>
+    <button class="btn btn-primary download-start" onclick="pageEvents.setBackgroundFetch('{{Link}}');">Sim!</button>
+    <br />
+    <br />
+    <div id="status-download" style="display:none;">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+        </div>
+        <div class="text-success">
+            <p>pronto!</p>
+            <button class="btn btn-success" onclick="pageEvents.loadBlogPost('{{Link}}');">ler!</button>
+        </div>
+    </div>
+
 </script>
 
 @section Scripts{

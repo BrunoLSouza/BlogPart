@@ -1,8 +1,9 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('localforage')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'localforage'], factory) :
-    (factory((global.localforageSetItems = global.localforageSetItems || {}),global.localforage));
-}(this, function (exports,localforage) { 'use strict';
+        typeof define === 'function' && define.amd ? define(['exports', 'localforage'], factory) :
+            (factory((global.localforageSetItems = global.localforageSetItems || {}), global.localforage));
+}(this, function (exports, localforage) {
+    'use strict';
 
     localforage = 'default' in localforage ? localforage['default'] : localforage;
 

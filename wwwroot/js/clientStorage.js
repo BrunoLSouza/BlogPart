@@ -1,7 +1,27 @@
 ﻿define([], function () {
+    var oldestBlogPostId = "";
+    var limit = 3;
     var blogInstance = localforage.createInstance({
         name: 'blog'
     });
+
+    function getPostText(link) {
+        return new Promise(function (resolve, reject) {
+            blogInstance.getItem('#' + link)
+                .then(function (text) {
+                resolve(text);
+            });
+        });
+    }
+
+    function addPostText(link, text) {
+        return new Promise(function (resolve, reject) {
+            blogInstance.setItem('#' + link, text)
+                .then(function () {
+                resolve();
+            });
+        });
+    }
 
     function addPosts(posts) {
         return new Promise(function (resolve, reject) {
@@ -21,34 +41,41 @@
         });
     }
 
-    var oldestBlogPostId = null;
-    var limit = 3;
     function getPosts() {
         return new Promise(function (resolve, reject) {
             blogInstance.keys().then(function (keys) {
+
+                //keys = keys.filter(function (a) { return a && !a.includes('#') });
+                //keys = keys.sort(function (a, b) { return a - b });
+
                 var index = keys.indexOf(oldestBlogPostId);
                 if (index == -1) { index = keys.length; }
                 if (index == 0) { resolve([]); return; }
+
                 var start = index - limit;
                 var limitAdjusted = start < 0 ? index : limit;
-                var keys = keys.splice(Math.max(0, start),
-                    limitAdjusted);
+
+                var keys = keys.splice(Math.max(0, start), limitAdjusted);
+
                 blogInstance.getItem(keys).then(function (results) {
-                    if (results === null)
-                        return resolve();
                     var posts = Object.keys(results).map(function (k) { return results[k] }).reverse();
                     oldestBlogPostId = String(posts[posts.length - 1].postId);
                     resolve(posts);
                 });
             });        });
     }
+
     function getOldestBlogPostId() {
         return oldestBlogPostId;
     }
+        
+
     return {
         addPosts: addPosts,
         getPosts: getPosts,
-        getOldestBlogPostId: getOldestBlogPostId
+        getOldestBlogPostId: getOldestBlogPostId,
+        addPostText: addPostText,
+        getPostText: getPostText
     }
 
 });

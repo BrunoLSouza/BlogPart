@@ -1,8 +1,9 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('localforage')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'localforage'], factory) :
-    (factory((global.localforageGetItems = global.localforageGetItems || {}),global.localforage));
-}(this, function (exports,localforage) { 'use strict';
+        typeof define === 'function' && define.amd ? define(['exports', 'localforage'], factory) :
+            (factory((global.localforageGetItems = global.localforageGetItems || {}), global.localforage));
+}(this, function (exports, localforage) {
+    'use strict';
 
     localforage = 'default' in localforage ? localforage['default'] : localforage;
 
@@ -106,7 +107,7 @@
                 var result = {};
                 var i = 0;
 
-                req.onsuccess = function () /*event*/{
+                req.onsuccess = function () /*event*/ {
                     var cursor = req.result; // event.target.result;
 
                     if (!cursor) {
@@ -146,7 +147,7 @@
                     }
                 };
 
-                req.onerror = function () /*event*/{
+                req.onerror = function () /*event*/ {
                     reject(req.error);
                 };
             }).catch(reject);
